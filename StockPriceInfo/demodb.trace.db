@@ -1,0 +1,3 @@
+2021-05-28 00:01:20 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "STOCK_INFO" not found; SQL statement:
+select stockinfo0_.id as id1_0_0_, stockinfo0_.code as code2_0_0_, stockinfo0_.name as name3_0_0_, stockinfo0_.price as price4_0_0_ from stock_info stockinfo0_ where stockinfo0_.id=? [42102-200]

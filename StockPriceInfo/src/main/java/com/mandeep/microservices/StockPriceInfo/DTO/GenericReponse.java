@@ -1,4 +1,4 @@
-package com.mandeep.microservices.StockPriceInfo;
+package com.mandeep.microservices.StockPriceInfo.DTO;
 
 public class GenericReponse {
 	

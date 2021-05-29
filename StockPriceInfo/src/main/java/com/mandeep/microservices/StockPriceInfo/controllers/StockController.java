@@ -1,52 +1,56 @@
-package com.mandeep.microservices.StockPriceInfo;
+package com.mandeep.microservices.StockPriceInfo.controllers;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.mandeep.microservices.StockPriceInfo.DTO.GenericReponse;
+import com.mandeep.microservices.StockPriceInfo.DTO.StockListResponse;
+import com.mandeep.microservices.StockPriceInfo.models.Stock;
+import com.mandeep.microservices.StockPriceInfo.services.StockDataService;
 
 @RestController
 @RequestMapping(path = "/stock")
 public class StockController {
 	
-	
 
+@Autowired	
+StockDataService stockDataService;
+	
+	
 @GetMapping(path = "/")	
 public StockListResponse getBrokerList()
 {
 	StockListResponse stockListResponse = new StockListResponse();
-    
-	ArrayList<Stock>stocks= new ArrayList<Stock>();
-	
-  	Stock stock= new Stock();
-  	stock.setName("Stock1");
-  	stock.setCode("STK1");
-  	stock.setClosePrice(1450);
-  	stock.setOpenPrice(14545);
-  	stock.setPrice(5000);
-  	stocks.add(stock);
-
-  	Stock stock1= new Stock();
-  	stock1.setName("Stock2");
-  	stock1.setCode("STK2");
-  	stock1.setClosePrice(1450);
-  	stock1.setOpenPrice(14545);
-  	stock1.setPrice(5000);
-  	stocks.add(stock1);
-
-  	Stock stock3= new Stock();
-  	stock3.setName("Stock3");
-  	stock3.setCode("STK3");
-  	stock3.setClosePrice(1450);
-  	stock3.setOpenPrice(14545);
-  	stock3.setPrice(5000);
-  	stocks.add(stock3);
-
-  	stockListResponse.createSuccessObject("Success");
-  	stockListResponse.setStocks(stocks);
-  	
+    List<Stock> stocks= stockDataService.getAllStocks();
+	stockListResponse.createSuccessObject("Success");
+	stockListResponse.setStocks(stocks);
 	return stockListResponse;
+}
+
+
+@GetMapping(path = "/SampleStockObject")	
+public Stock getSampleData()
+{
+	Stock stock = new Stock();
+    return stock;
+}
+
+
+@PostMapping(path="/")
+public GenericReponse saveNewStock(Stock stock)
+{
+	GenericReponse response= new GenericReponse();
+	Stock insetedStock= stockDataService.saveStock(stock);
+	if(insetedStock.getId()>0)
+	{
+		response.createSuccessObject(String .valueOf(insetedStock.getId()));
+	}	
+	return response;
 }
 	
 

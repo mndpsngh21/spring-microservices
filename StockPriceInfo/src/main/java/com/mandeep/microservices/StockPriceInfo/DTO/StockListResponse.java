@@ -1,7 +1,9 @@
-package com.mandeep.microservices.StockPriceInfo;
+package com.mandeep.microservices.StockPriceInfo.DTO;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.mandeep.microservices.StockPriceInfo.models.Stock;
 
 
 
